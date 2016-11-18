@@ -386,6 +386,24 @@ def test_fields_empty_list_means_no_fields():
     assert len(table.columns.names()) == 0
 
 
+def test_can_override_fields_on_subclass():
+    '''
+    Regression test for #386 - "Declaring extra fields on subclass raises
+    KeyError".
+    '''
+    class BaseTable(tables.Table):
+        class Meta:
+            model = Person
+            fields = ('first_name', 'last_name')
+
+    class MyTable(BaseTable):
+        class Meta:
+            fields = ('first_name', 'last_name', 'website')
+
+    Person.objects.create(first_name='Jan', last_name='Pieter')
+    MyTable(Person.objects.all())
+
+
 def test_column_named_delete():
     class DeleteTable(tables.Table):
         delete = tables.TemplateColumn('[delete button]', verbose_name='')
