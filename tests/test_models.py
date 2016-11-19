@@ -397,7 +397,7 @@ def test_can_override_fields_on_subclass():
             fields = ('first_name', 'last_name')
 
     class MyTable(BaseTable):
-        class Meta:
+        class Meta(BaseTable.Meta):
             fields = ('first_name', 'last_name', 'website')
 
     Person.objects.create(first_name='Jan', last_name='Pieter')
