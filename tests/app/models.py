@@ -1,6 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -98,7 +99,14 @@ class PersonInformation(models.Model):
         Person, related_name='info_list', verbose_name='Information')
 
 
+class Player(models.Model):
+    person = models.ForeignKey(Person)
+    created = models.DateTimeField(auto_now_add=True)
+    score = models.PositiveIntegerField()
+
+
 # -- haystack -----------------------------------------------------------------
+
 
 if not six.PY3:  # Haystack isn't compatible with Python 3
     from haystack import indexes
