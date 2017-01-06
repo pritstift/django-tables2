@@ -1,7 +1,6 @@
 {% load django_tables2 %}
 {% load i18n %}
 
-<div class="table-container">
 {% block table %}
 <table{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
     {% block table.thead %}
@@ -85,4 +84,4 @@
 {% endwith %}
 {% endwith %}
 {% endif %}
-</div>
+
